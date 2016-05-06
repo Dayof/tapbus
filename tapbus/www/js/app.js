@@ -7,6 +7,17 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
+//angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'uiGmapgoogle-maps'])
+
+// //Google Maps SDK
+// angular.module('app').config(function(uiGmapGoogleMapApiProvider) {
+//     uiGmapGoogleMapApiProvider.configure({
+//         key: 'AIzaSyBpIcsjVij2iNxGzwB0uJdnKhI4hNN8QUA',
+//         v: '3.17',
+//         libraries: 'weather,geometry,visualization'
+//     });
+// });
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
