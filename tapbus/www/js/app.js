@@ -7,17 +7,6 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives',  'nfcFilters'])
 
-//angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'uiGmapgoogle-maps'])
-
-// //Google Maps SDK
-// angular.module('app').config(function(uiGmapGoogleMapApiProvider) {
-//     uiGmapGoogleMapApiProvider.configure({
-//         key: 'AIzaSyBpIcsjVij2iNxGzwB0uJdnKhI4hNN8QUA',
-//         v: '3.17',
-//         libraries: 'weather,geometry,visualization'
-//     });
-// });
-
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -31,30 +20,4 @@ angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'a
       StatusBar.styleDefault();
     }
   });
-})
-
-// nfc service
-.factory('nfcService', function($rootScope, $ionicPlatform){
-  var tag = {};
-
-  $ionicPlatform.ready(function(){
-    nfc.addNdefListener(function(nfcEvent){
-      console.log(JSON.stringify(nfcEvent.tag, null, 4));
-      $rootScope.$apply(function(){
-        angular.copy(nfcEvent.tag, tag);
-      });
-    }, function () {
-      console.log("Listening for NDEF Tags.");
-    }, function (reason) {
-      alert("Error adding NFC Listener " + reason);
-    });
-  });
-
-  return {
-    tag: tag,
-    clearTag: function () {
-      angular.copy({}, this.tag);
-    }
-  };
-
 });

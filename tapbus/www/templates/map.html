@@ -1,5 +1,50 @@
 <ion-view title="Map" id="page2">
     <ion-content padding="true" class="has-header">
-        <div id="map" data-tap-disabled="true"></div>
+        <!-- div id="map" data-tap-disabled="true"></div> -->
+        <ion-pane>
+          <ion-header-bar class="bar-stable">
+              <h1 class="title">NFC Reader</h1>
+              <button class="button button-clear button-positive" ng-click="clear()" ng-if="tag.id">Clear</button>
+          </ion-header-bar>
+          <ion-content>
+              <div ng-if="!tag.id">
+                  <div class="card">
+                      <div class="item item-text-wrap center">
+                          Scan a tag to being.
+                      </div>
+                  </div>
+              </div>
+              <div ng-if="tag.id">
+                  <div class="card">
+                      <div class="item item-text-wrap">
+                          <div class="card" ng-repeat="record in tag.ndefMessage">
+                              <div class="item item-divider">
+                                  Record {{$index + 1}} <br/>
+                              </div>
+                              <div class="item item-text-wrap">
+                                  <dl>
+                                      <dt>Test 1</dt>
+                                      <dd>{{ record | testf }}</dd>
+                                      <dt>Test 2</dt>
+                                      <dd>{{ latLngList }}</dd>
+                                      <dt>Test 3</dt>
+                                      <dd>{{ id[0] }}</dd>
+                                      <dt>Test 4</dt>
+                                      <dd>{{ id[1] }}</dd>
+                                      <dt>Test 5</dt>
+                                      <dd>{{ id[2] }}</dd>
+                                      <dt>Test 6</dt>
+                                      <dd>{{ setLat(record) }}</dd>
+                                      <dt>Payload</dt>
+                                      <dd>{{ record | decodePayload }}</dd>
+                                  </dl>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+          </ion-content>
+        </ion-pane>
     </ion-content>
 </ion-view>

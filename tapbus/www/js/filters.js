@@ -20,7 +20,7 @@ angular.module('nfcFilters', [])
             } else {
                 return input;
             }
-        }
+        };
     })
 
     .filter('bytesToString', function() {
@@ -76,6 +76,48 @@ angular.module('nfcFilters', [])
             }
 
         };
+    })
+
+    .filter('testf', function(){
+      function testf(record){
+        var payload,
+            recordType = nfc.bytesToString(record.type);
+
+        if (recordType === "T") {
+            payload = ndef.textHelper.decodePayload(record.payload);
+
+        } else if (recordType === "U") {
+            payload = ndef.uriHelper.decodePayload(record.payload);
+
+        } else {
+
+            var printableData = record.payload.map(function(i) {
+                if (i <= 0x1F) {
+                    return 0x2e; // unprintable, replace with "."
+                } else {
+                    return i;
+                }
+            });
+
+            payload = nfc.bytesToString(printableData);
+        }
+
+        var latLngInput = payload.replace(":",",").split(",");
+        var latLng = [];
+
+        latLng[0] = latLngInput[1];
+        latLng[1] = latLngInput[2];
+
+        return latLng;
+      }
+
+      return function(input) {
+          if (window.nfc) {
+              return testf(input);
+          } else {
+              return input.payload;
+          }
+      };
     })
 
     .filter('decodePayload', function() {
