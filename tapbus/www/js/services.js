@@ -7,9 +7,9 @@ angular.module('app.services', [])
   $ionicPlatform.ready(function(){
     nfc.addNdefListener(function(nfcEvent){
       console.log(JSON.stringify(nfcEvent.tag, null, 4));
-      $rootScope.$apply(function(){
-        angular.copy(nfcEvent.tag, tag);
-      });
+
+      angular.copy(nfcEvent.tag, tag);
+      broadcastTag(tag);
     }, function () {
       console.log("Listening for NDEF Tags.");
     }, function (reason) {
@@ -17,8 +17,12 @@ angular.module('app.services', [])
     });
   });
 
+  function broadcastTag(tag) {
+    $rootScope.$emit('new.tag', tag);
+  }
+
   return {
-    tag: tag,
+    tag: function(){return tag;},
     clearTag: function () {
       angular.copy({}, this.tag);
     }
