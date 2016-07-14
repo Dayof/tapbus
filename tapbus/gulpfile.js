@@ -5,10 +5,9 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var sh = require('shelljs');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
-var notify = require("gulp-notify");
+var notify = require('gulp-notify');
 var sh = require('shelljs');
 var jshint = require('gulp-jshint');
 
@@ -35,12 +34,12 @@ gulp.task('sass', function(done) {
 gulp.task('scripts', function() {
     return gulp.src(paths.scripts)
         .pipe(sourcemaps.init())
-        .pipe(concat("app.js"))
+        .pipe(concat('app.js'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest("./www/build/"))
+        .pipe(gulp.dest('./www/build/'))
         .pipe(rename('app.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest("./www/build/"))
+        .pipe(gulp.dest('./www/build/'))
         .pipe(notify({ message: 'Scripts built' }));
 });
 
